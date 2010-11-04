@@ -20,8 +20,9 @@
 	$announcement_guid = get_input('announcement_guid');
 	$title = get_input('title');
 	$description = get_input('description');
+	$access_id = get_input('access_id');
 	
-	$announcement = get_entity('announcement_guid');
+	$announcement = get_entity($announcement_guid);
 	
 	if ($announcement && $announcement->getSubtype() == 'announcement') {
 	
@@ -32,28 +33,29 @@
 		// Check inputs
 		if (!$title || !$description) {
 			register_error(elgg_echo('announcements:error:requiredfields'));
-			forward($_SERVER['HTTP_REFERER']);
+			forward(REFERER);
 		}
 	
 		// Set announcement fields
 		$announcement->title = $title;
 		$announcement->description = $description;
+		$announcement->access_id = $access_id;
 	
 		// Try saving
 		if (!$announcement->save()) {
 			// Error.. say so and forward
 			register_error(elgg_echo('announcements:error:edit'));
-			forward($_SERVER['HTTP_REFERER']);
+			forward(REFERER);
 		} 
 	
 		// Success
 		remove_metadata($_SESSION['user']->guid,'announcement_title');
 		remove_metadata($_SESSION['user']->guid,'announcement_description');
 		system_message(elgg_echo('announcements:success:edit'));
-		forward($_SERVER['HTTP_REFERER']);
+		forward('pg/announcements');
 	}
 	
 	register_error(elgg_echo('announcements:error:edit'));
-	forward($_SERVER['HTTP_REFERER']);
+	forward(REFERER);
 	
 ?>

@@ -19,15 +19,17 @@
 	// Get inputs
 	$title = get_input('title');
 	$description = get_input('description');
+	$access_id = get_input('access_id');
 	
 	// Cache to users session
 	$_SESSION['user']->announcement_title = $title;
 	$_SESSION['user']->announcement_description = $description;
+	$_SESSION['user']->announcement_access_id = $access_id;
 	
 	// Check inputs
 	if (!$title || !$description) {
 		register_error(elgg_echo('announcements:error:requiredfields'));
-		forward($_SERVER['HTTP_REFERER']);
+		forward(REFERER);
 	}
 	
 	// New announcement
@@ -35,18 +37,19 @@
 	$announcement->subtype = 'announcement';
 	$announcement->title = $title;
 	$announcement->description = $description;
-	$announcement->access_id = ACCESS_LOGGED_IN;
+	$announcement->access_id = $access_id;
 	
 	// Try saving
 	if (!$announcement->save()) {
 		// Error.. say so and forward
 		register_error(elgg_echo('announcements:error:create'));
-		forward($_SERVER['HTTP_REFERER']);
+		forward(REFERER);
 	} 
 	
 	// Success
 	remove_metadata($_SESSION['user']->guid,'announcement_title');
 	remove_metadata($_SESSION['user']->guid,'announcement_description');
+	remove_metadata($_SESSION['user']->guid,'announcement_access_id');
 	system_message(elgg_echo('announcements:success:create'));
 	forward(elgg_get_site_url() . 'pg/announcements');
 	

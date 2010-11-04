@@ -25,12 +25,12 @@
 		if ($announcement->delete()) {
 			// Success
 			system_message(elgg_echo('announcements:success:delete'));
-			forward($_SERVER['HTTP_REFERER']);
+			forward(REFERER);
 			
 		} else {
 			// Error
 			register_error(elgg_echo('announcements:error:delete'));
-			forward($_SERVER['HTTP_REFERER']);
+			forward(REFERER);
 		}		
 	}
 ?>

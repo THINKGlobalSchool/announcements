@@ -16,9 +16,10 @@
 			forward();
 		}
 		
-		$action 			= "announcements/edit_announcements";
+		$action 			= "announcements/edit_announcement";
 		$title 		 		= $vars['entity']->title;
 		$description 		= $vars['entity']->description;	
+		$access_id 			= $vars['entity']->access_id;
 		$entity_hidden  = elgg_view('input/hidden', array('internalname' => 'announcement_guid', 'value' => $vars['entity']->getGUID()));
 		
 	} else {
@@ -26,6 +27,7 @@
 		$action 			= "announcements/create_announcement";
 		$title 				= "";
 		$description 		= "";
+		$access_id			= ACCESS_LOGGED_IN;
 		$return_required 	= 0;
 		$is_rubric_selected = 0;
 	}
@@ -44,6 +46,13 @@
 	
 	$description_label = elgg_echo("description");
 	$description_input = elgg_view("input/longtext", array('internalname' => 'description', 'value' => $description));
+	
+	$access_label = elgg_echo('access');
+	$access_input = elgg_view('input/access', array(
+		'internalname' => 'access_id',
+		'internalid' => 'access_id',
+		'value' => $access_id
+	));
 
 	// Build Form Body
 	$form_body = <<<EOT
@@ -56,6 +65,10 @@
 		<div>
 			<label>$description_label</label><br />
 	        $description_input
+		</div><br />
+		<div>
+			<label>$access_label</label><br />
+	        $access_input
 		</div><br />
 		<div>
 			$submit_input

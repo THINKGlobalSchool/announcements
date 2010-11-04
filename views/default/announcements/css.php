@@ -18,13 +18,13 @@ div#announcement_container {
 div#announcement_container div.announcement {
 	height: auto;
 	width: 100%;
-	margin: 6px;
-	border: 2px solid #AE002D;
+	margin: 8px;
+	/*border: 1px solid #AE002D;*/
+	border: 1px solid #CCCCCC;
 	background: #ededed;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-box-shadow: 1px 1px 10px #333333;
-	-moz-box-shadow: 1px 1px 10px #333333;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+
 }
 
 div#announcement_container div.announcement:hover {
@@ -32,7 +32,7 @@ div#announcement_container div.announcement:hover {
 }
 
 div.announcement_image {
-	background-image: url('<?php echo elgg_get_site_url() . 'mod/announcements/images/alert.png' ?>');
+	background-image: url('<?php echo elgg_get_site_url() . 'mod/announcements/images/alert_2.png' ?>');
 	width: 60px;
 	height: 60px;
 	float: left;
@@ -45,7 +45,8 @@ div.announcement_content {
 }
 
 div.announcement_content_title {
-	
+	width: 100%;
+	margin-bottom: 2px;
 }
 
 div.announcement_content_body {
@@ -69,4 +70,14 @@ div.announcement_viewers {
 	border-top: 1px solid #CCCCCC;
 	margin-top: 10px;
 	padding-top: 10px;	
+}
+
+div.announcement_access_display {
+	line-height:1.4em;
+    font-size: 11px;
+    color: #666666;
+    float: right;
+	margin-right: 8px;
+	margin-top: -15px;
+	margin-bottom: 4px;
 }

@@ -10,8 +10,18 @@
 	 * 
 	 */
 	
+	
 	$announcement_list_url = elgg_get_site_url() . 'pg/announcements/ajax_list';
+	
+	// Check if we're being viewed by a channel (only display announcements for that channel)
+	$sac = $vars['sac'];
+	if ($sac) {
+		$announcement_list_url .= '/' . $sac->getGUID();
+	}
+		
 	$announcement_close_url = elgg_add_action_tokens_to_url(elgg_get_site_url() . 'action/announcements/close_announcement');
+	
+
 ?>
 <div id="announcement_container"></div>
 <script type='text/javascript'>

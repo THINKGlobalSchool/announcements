@@ -23,6 +23,9 @@
 		// Extend river dashboard container
 		elgg_extend_view('riverdashboard/container', 'announcements/announcement_container', 350);
 		
+		// Extend shared_
+		elgg_extend_view('shared_access/shared_access_topbar', 'announcements/announcement_container', 9999);
+		
 		// Register actions
 		register_action('announcements/close_announcement', false, $CONFIG->pluginspath . 'announcements/actions/close_announcement.php');
 		register_action('announcements/create_announcement', false, $CONFIG->pluginspath . 'announcements/actions/create_announcement.php');
@@ -58,7 +61,7 @@
 					$content_info['content'] = elgg_view_title($title) . elgg_view('announcements/forms/editannouncement', array('entity' => $announcement));
 				} else {
 					register_error(elgg_echo('announcements:error:invalid'));
-					forward($_SERVER['HTTP_REFERER']);
+					forward(REFERER);
 				}
 				break;
 			case 'create':
@@ -76,12 +79,17 @@
 					$content_info['content'] = elgg_view_entity($announcement, true);
 				} else {
 					register_error(elgg_echo('announcements:error:invalid'));
-					forward($_SERVER['HTTP_REFERER']);
+					forward(REFERER);
 				}
 				break;
 			case 'ajax_list':
 				// Todo: check if we're coming from XHR
-				echo elgg_view('announcements/announcement_list');
+				// Might have recieved a shared_access guid
+				if ($page[1] && $sac = get_entity($page[1])) {
+					echo elgg_view('announcements/announcement_list', array('sac' => $sac));
+				} else {
+					echo elgg_view('announcements/announcement_list');
+				}
 				exit;
 				break;
 			default:
