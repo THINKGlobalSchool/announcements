@@ -43,11 +43,11 @@
 	if ($vars['full']) {
 		$announcement_viewers = elgg_view('announcements/announcement_viewers', array('entity' => $announcement));
 		echo <<<___END
-		<div class="clearfloat">
-			<div id="content_header" class="clearfloat">
+		<div class="clearfix">
+			<div id="content_header" class="clearfix">
 				<div class="content_header_title"><h2>{$announcement->title}</h2></div>
 			</div>
-			<div class="clearfloat">
+			<div class="clearfix">
 			<div class="entity_listing_icon">
 				$owner_icon
 			</div>
@@ -65,7 +65,7 @@
 ___END;
 	} else {
 		echo <<<___END
-		<div class="announcement entity_listing clearfloat">
+		<div class="announcement entity_listing clearfix">
 		<div class="entity_listing_icon">
 			$owner_icon
 		</div>
