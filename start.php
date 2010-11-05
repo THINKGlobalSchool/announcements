@@ -35,7 +35,8 @@
 		// Register URL handler
 		register_entity_url_handler('announcement_url','object', 'announcement');
 		
-		if (isadminloggedin()) {
+		// Check if we're allowed to see announcements
+		if (can_user_manage_announcements()) {
 			// Add to main menu
 			add_menu(elgg_echo('announcements'), $CONFIG->wwwroot . 'pg/announcements');
 		}
@@ -53,7 +54,7 @@
 		
 		switch ($page[0]) {
 			case 'edit':
-				admin_gatekeeper();
+				announcement_gatekeeper();
 				$title = elgg_echo('announcements:title:edit');
 				elgg_push_breadcrumb($title);
 				$announcement = get_entity($page[1]);
@@ -65,13 +66,13 @@
 				}
 				break;
 			case 'create':
-				admin_gatekeeper();
+				announcement_gatekeeper();
 				$title = elgg_echo('announcements:title:create');
 				elgg_push_breadcrumb($title);
 				$content_info['content'] = elgg_view_title($title) . elgg_view('announcements/forms/editannouncement');
 				break;
 			case 'view':
-				admin_gatekeeper();
+				announcement_gatekeeper();
 				$announcement = get_entity($page[1]);
 				if ($announcement && $announcement->getSubtype() == 'announcement') {
 					$title = $announcement->title;
@@ -93,7 +94,7 @@
 				exit;
 				break;
 			default:
-				admin_gatekeeper();
+				announcement_gatekeeper();
 				$title = elgg_echo('announcements');
 				$content_info['content'] = elgg_view('page_elements/content_header', array('tabs' => array(), 'type' => 'announcement', 'new_link' => elgg_get_site_url() . 'pg/announcements/create'));
 				$announcements = elgg_list_entities(array('type' => 'object', 'subtype' => 'announcement', 'limit' => 9999, 'full_view' => false));
@@ -129,6 +130,48 @@
 		return elgg_get_site_url() . "pg/announcements/view/{$entity->guid}/";
 	}
 	
+	/** 
+	 * Announcement Gatekeeper function, allows custom permissions
+	 */ 
+	function announcement_gatekeeper() {		
+		gatekeeper();							
+		if (!can_user_manage_announcements()) {
+			forward();
+		}
+    }
+
+	/** 
+	 * Helper function to check if a user is allowed to create/manage announcements
+	 * @return bool
+	 */
+	function can_user_manage_announcements() {
+		// Don't bother checking for admins
+		if (isadminloggedin()) {
+			return true;
+		}
+		// Will be true for whitelist, false for blacklist
+		$access_toggle = get_plugin_setting('usertoggle', 'announcements');
+	
+		$user_list = get_plugin_setting('userlist','announcements');
+		$user_list = explode("\n", $user_list);
+	
+		$user = get_loggedin_user();
+	
+		if (in_array($user->username, $user_list)) {
+			$user_in_list = true;
+		}
+
+		if ($access_toggle) {
+			// Whitelist
+			$allowed = $user_in_list ? true:false;
+		} else {
+			// Blacklist
+			$allowed = $user_in_list ? false:true;
+		}
+		
+		return $allowed;
+	}
+
 	register_elgg_event_handler('init', 'system', 'announcements_init');
 	
 ?>

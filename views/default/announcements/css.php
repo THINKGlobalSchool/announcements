@@ -53,17 +53,35 @@ div.announcement_content_body {
 	font-size: 90%;
 }
 
-div.announcement_actions{
+div.announcement_content_body img {
+	max-width: 470px;
+}
+
+div.announcement_actions {
 	float: right;
 	margin-left: 10px;
 	margin-right: 10px;
 	margin-top: 5px;
 }
 
+div.announcement_actions a.close_announcement {
+	font-size: 85%;
+}
+
+div.announcement_actions a.close_announcement:hover {
+	cursor: pointer;
+}
+
 div.announcement_description {
 	border-top: 1px solid #CCCCCC;
 	margin-top: 10px;
 	padding-top: 10px;
+}
+
+div.announcement_view_stats {
+	border-top: 1px solid #CCCCCC;
+	margin-top: 10px;
+	padding-top: 10px;	
 }
 
 div.announcement_viewers {
@@ -80,4 +98,10 @@ div.announcement_access_display {
 	margin-right: 8px;
 	margin-top: -15px;
 	margin-bottom: 4px;
+}
+
+span.viewers_text {
+	display: block;
+	margin-top: 6px;
+	margin-bottom: 10px;
 }

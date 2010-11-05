@@ -43,7 +43,7 @@
 			<div class='announcement_content_body'><?php echo $announcement->description; ?></div>
 		</div>
 	<div class='announcement_actions'>
-		<a class='close_announcemen	t' id='<?php echo $vars['entity']->getGUID(); ?>'>Dismiss [x]</a>
+		<a class='close_announcement' id='<?php echo $vars['entity']->getGUID(); ?>'>Dismiss [x]</a>
 	</div>
 	<div style='clear: both;'></div>
 	<div class='announcement_access_display'>

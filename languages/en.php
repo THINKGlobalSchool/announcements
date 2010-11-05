@@ -24,7 +24,7 @@ $english = array(
 	// Menu items
 
 	// Labels 
-	'announcements:label:usersviewed' => 'User\'s Viewed',
+	'announcements:label:usersviewed' => 'Viewed By:',
 
 	// Messages
 	'announcements:success:create' => 'Successfully created new announcement',
@@ -35,9 +35,15 @@ $english = array(
 	'announcements:error:delete' => 'There was an error deleting the announcement',
  	'announcements:error:requiredfields' => 'One or more required fields are missing',
 	'announcements:error:invalid' => 'Invalid announcement',
+	'announcements:label:usertoggle' => 'User List Toggle (List behaves as either a whitelist or blacklist)',
+	'announcements:label:blacklist' => 'Blacklist',
+	'announcements:label:whitelist' => 'Whitelist',
+	'announcements:label:userlist' => 'User List',
+	'announcements:label:viewstats' => 'Stats:',
 	
 	// Other content
 	'announcements:author_by_line' => 'By %s',
+	'announcements:viewed_by' => "%s of %s %s users have viewed this announcement (%s)",
 );
 
 add_translation('en',$english);
