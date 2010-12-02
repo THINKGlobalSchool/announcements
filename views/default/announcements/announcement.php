@@ -37,13 +37,15 @@
 	}	
 ?>
 <div class='announcement' id='announcement_<?php echo $vars['entity']->getGUID(); ?>'>
-	<div class='announcement_image'></div>
-		<div class='announcement_content'> 
-			<div class='announcement_content_title'><h3><?php echo $announcement->title; ?></h3></div>
-			<div class='announcement_content_body'><?php echo $announcement->description; ?></div>
+	<div class='announcement_content'> 
+		<div class='announcement_content_title'>
+			<h3><?php echo $announcement->title; ?></h3>
 		</div>
-	<div class='announcement_actions'>
-		<a class='close_announcement' id='<?php echo $vars['entity']->getGUID(); ?>'>Dismiss [x]</a>
+		<div class='announcement_actions'>
+			<a class='close_announcement' id='<?php echo $vars['entity']->getGUID(); ?>'>Dismiss [x]</a>
+		</div>
+		<div style='clear: both;'></div>
+		<div class='announcement_content_body'><?php echo $announcement->description; ?></div>
 	</div>
 	<div style='clear: both;'></div>
 	<div class='announcement_access_display'>

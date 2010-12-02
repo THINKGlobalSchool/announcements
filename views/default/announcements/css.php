@@ -19,12 +19,10 @@ div#announcement_container div.announcement {
 	height: auto;
 	width: 100%;
 	margin: 8px;
-	/*border: 1px solid #AE002D;*/
-	border: 1px solid #CCCCCC;
+	border: 2px solid #AE002D;
 	background: #ededed;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-
 }
 
 div#announcement_container div.announcement:hover {
@@ -40,13 +38,13 @@ div.announcement_image {
 }
 
 div.announcement_content {
-	float: left;
 	margin: 10px;
+	padding-bottom: 5px;
 }
 
 div.announcement_content_title {
-	width: 100%;
 	margin-bottom: 2px;
+	float: left;
 }
 
 div.announcement_content_body {
@@ -59,9 +57,7 @@ div.announcement_content_body img {
 
 div.announcement_actions {
 	float: right;
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-top: 5px;
+	margin-top: -8px;
 }
 
 div.announcement_actions a.close_announcement {
