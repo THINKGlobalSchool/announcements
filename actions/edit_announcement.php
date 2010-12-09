@@ -10,12 +10,6 @@
 	 * 
 	 */
 	
-	// Logged in users
-	gatekeeper();
-	
-	// Actions
-	action_gatekeeper();
-	
 	// Get inputs
 	$announcement_guid = get_input('announcement_guid');
 	$title = get_input('title');

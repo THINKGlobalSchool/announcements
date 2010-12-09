@@ -9,13 +9,7 @@
 	 * @link http://www.thinkglobalschool.com/
 	 * 
 	 */
-	
-	// Logged in users
-	gatekeeper();
-	
-	// Actions
-	action_gatekeeper();
-	
+		
 	// Get inputs
 	$title = get_input('title');
 	$description = get_input('description');
