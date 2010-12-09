@@ -27,10 +27,10 @@
 		elgg_extend_view('shared_access/shared_access_topbar', 'announcements/announcement_container', 9999);
 		
 		// Register actions
-		register_action('announcements/close_announcement', false, $CONFIG->pluginspath . 'announcements/actions/close_announcement.php');
-		register_action('announcements/create_announcement', false, $CONFIG->pluginspath . 'announcements/actions/create_announcement.php');
-		register_action('announcements/edit_announcement', false, $CONFIG->pluginspath . 'announcements/actions/edit_announcement.php');
-		register_action('announcements/delete_announcement', false, $CONFIG->pluginspath . 'announcements/actions/delete_announcement.php');
+		elgg_register_action('announcements/close_announcement', $CONFIG->pluginspath . 'announcements/actions/close_announcement.php');
+		elgg_register_action('announcements/create_announcement', $CONFIG->pluginspath . 'announcements/actions/create_announcement.php');
+		elgg_register_action('announcements/edit_announcement', $CONFIG->pluginspath . 'announcements/actions/edit_announcement.php');
+		elgg_register_action('announcements/delete_announcement', $CONFIG->pluginspath . 'announcements/actions/delete_announcement.php');
 		
 		// Register URL handler
 		register_entity_url_handler('announcement_url','object', 'announcement');
