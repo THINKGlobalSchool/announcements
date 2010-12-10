@@ -18,7 +18,7 @@
 		register_page_handler('announcements', 'announcements_page_handler');
 		
 		// Extend CSS
-		elgg_extend_view('css', 'announcements/css');
+		elgg_extend_view('css/screen', 'announcements/css');
 		
 		// Extend river dashboard container
 		elgg_extend_view('riverdashboard/container', 'announcements/announcement_container', 350);
