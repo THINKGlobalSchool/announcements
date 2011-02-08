@@ -46,8 +46,8 @@ if ($announcement && $announcement->getSubtype() == 'announcement') {
 	} 
 	
 	// Clear Sticky form
-	elgg_clear_sticky_form('annoucement-post-form');s
-
+	elgg_clear_sticky_form('annoucement-post-form');
+	
 	system_message(elgg_echo('announcements:success:edit'));
 	forward('pg/announcements/all');
 }
