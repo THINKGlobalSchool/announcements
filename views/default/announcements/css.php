@@ -11,11 +11,11 @@
 	 */
 ?>
 
-div#announcement_container {
+div#announcement-container {
 	
 }
 
-div#announcement_container div.announcement {
+div#announcement-container div.announcement {
 	height: auto;
 	width: 100%;
 	margin: 8px;
@@ -25,68 +25,68 @@ div#announcement_container div.announcement {
 	-moz-border-radius: 10px;
 }
 
-div#announcement_container div.announcement:hover {
+div#announcement-container div.announcement:hover {
 	background: #ffffff;
 }
 
-div.announcement_image {
-	background-image: url('<?php echo elgg_get_site_url() . 'mod/announcements/images/alert_2.png' ?>');
+div.announcement-image {
+	background-image: url('<?php echo elgg_get_site_url() . 'mod/announcements/graphics/alert_2.png' ?>');
 	width: 60px;
 	height: 60px;
 	float: left;
 	margin: 10px;
 }
 
-div.announcement_content {
+div.announcement-content {
 	margin: 10px;
 	padding-bottom: 5px;
 }
 
-div.announcement_content_title {
+div.announcement-content-title {
 	margin-bottom: 2px;
 	float: left;
 }
 
-div.announcement_content_body {
+div.announcement-content-body {
 	font-size: 90%;
 }
 
-div.announcement_content_body img {
+div.announcement-content-body img {
 	max-width: 470px;
 }
 
-div.announcement_actions {
+div.announcement-actions {
 	float: right;
 	margin-top: -8px;
 }
 
-div.announcement_actions a.close_announcement {
+div.announcement-actions a.close-announcement {
 	font-size: 85%;
 }
 
-div.announcement_actions a.close_announcement:hover {
+div.announcement-actions a.close-announcement:hover {
 	cursor: pointer;
 }
 
-div.announcement_description {
+div.announcement-description {
 	border-top: 1px solid #CCCCCC;
 	margin-top: 10px;
 	padding-top: 10px;
 }
 
-div.announcement_view_stats {
+div.announcement-view-stats {
 	border-top: 1px solid #CCCCCC;
 	margin-top: 10px;
 	padding-top: 10px;	
 }
 
-div.announcement_viewers {
+div.announcement-viewers {
 	border-top: 1px solid #CCCCCC;
 	margin-top: 10px;
 	padding-top: 10px;	
 }
 
-div.announcement_access_display {
+div.announcement-access-display {
 	line-height:1.4em;
     font-size: 11px;
     color: #666666;
@@ -96,7 +96,7 @@ div.announcement_access_display {
 	margin-bottom: 4px;
 }
 
-span.viewers_text {
+span.viewers-text {
 	display: block;
 	margin-top: 6px;
 	margin-bottom: 10px;
