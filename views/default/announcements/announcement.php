@@ -34,7 +34,10 @@ switch ($announcement->access_id) {
 		$acl = get_access_collection($announcement->access_id);
 		$access_content = $acl->name;
 		break;
-}	
+}
+	
+$close_text = elgg_echo('announcements:label:close')
+
 ?>
 <div class='announcement' id='announcement-<?php echo $vars['entity']->getGUID(); ?>'>
 	<div class='announcement-content'> 
@@ -42,7 +45,7 @@ switch ($announcement->access_id) {
 			<h3><?php echo $announcement->title; ?></h3>
 		</div>
 		<div class='announcement-actions'>
-			<a class='close-announcement' id='<?php echo $vars['entity']->getGUID(); ?>'>Dismiss [x]</a>
+			<a class='close-announcement' id='<?php echo $vars['entity']->getGUID(); ?>'><?php echo $close_text; ?> <span class='close-announcement-button'>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
 		</div>
 		<div style='clear: both;'></div>
 		<div class='announcement-content-body'><?php echo $announcement->description; ?></div>

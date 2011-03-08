@@ -61,7 +61,17 @@ div.announcement-actions {
 }
 
 div.announcement-actions a.close-announcement {
-	font-size: 85%;
+	font-weight: bold;
+	font-size: 90%;
+}
+
+div.announcement-actions span.close-announcement-button {
+	background: url("http://localhost/elgg-svn/mod/tgstheme/graphics/elgg_sprites.png") no-repeat scroll -200px -16px transparent;
+	height: 14px;
+	width: 14px;
+	text-align: left;
+	text-indent: -9000px;
+	display: inline;
 }
 
 div.announcement-actions a.close-announcement:hover {

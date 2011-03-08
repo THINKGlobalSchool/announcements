@@ -41,6 +41,7 @@ $english = array(
 	'announcements:label:whitelist' => 'Whitelist',
 	'announcements:label:userlist' => 'User List',
 	'announcements:label:viewstats' => 'Stats:',
+	'announcements:label:close' => 'Close',
 	
 	// Other content
 	'announcements:author_by_line' => 'By %s',
