@@ -48,7 +48,7 @@ $viewers = elgg_get_entities_from_relationship(array(
 													'count' => false,
 												));
 
-$percentage = number_format((count($viewers) / $viewers_count) * 100, 1);
+//$percentage = number_format((count($viewers) / $viewers_count) * 100, 1);
 												
 echo '<span class="viewers-text">' . sprintf(elgg_echo('announcements:viewed_by'), count($viewers), $viewers_count, $context_text, $percentage . '%')  . '</span>';
 												

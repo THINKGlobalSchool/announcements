@@ -10,14 +10,18 @@
  * 
  */
 
-register_elgg_event_handler('init', 'system', 'announcements_init');
+elgg_register_event_handler('init', 'system', 'announcements_init');
 
 function announcements_init() {
-	// Include lib
-	include elgg_get_plugin_path() . 'announcements/lib/announcements.php';
+	$plugin_root = dirname(__FILE__);
+
+	// register and use the lib
+	$lib_path = "$plugin_root/lib/announcements.php";
+	elgg_register_library('announcements', $lib_path);
+	elgg_load_library('announcements');
 	
 	// Page handler
-	register_page_handler('announcements', 'announcements_page_handler');
+	elgg_register_page_handler('announcements', 'announcements_page_handler');
 	
 	// Extend CSS
 	elgg_extend_view('css/screen', 'announcements/css');
@@ -29,14 +33,13 @@ function announcements_init() {
 	elgg_extend_view('shared_access/shared_access_topbar', 'announcements/announcement_container', 9999);
 	
 	// Register actions
-	$action_base = elgg_get_plugin_path() . 'announcements/actions/announcements';
+	$action_base = $plugin_root . '/actions/announcements';
 	elgg_register_action('announcements/close', "$action_base/close.php");
-	elgg_register_action('announcements/add', "$action_base/add.php");
-	elgg_register_action('announcements/edit', "$action_base/edit.php");
+	elgg_register_action('announcements/save', "$action_base/save.php");
 	elgg_register_action('announcements/delete', "$action_base/delete.php");
 	
 	// Register URL handler
-	register_entity_url_handler('announcement_url','object', 'announcement');
+	elgg_register_entity_url_handler('object', 'announcement', 'announcement_url');
 	
 	// Check if we're allowed to see announcements
 	if (can_user_manage_announcements()) {
@@ -61,29 +64,32 @@ function announcements_init() {
 function announcements_page_handler($page) {
 	
 	// Initial breadcrumb
-	elgg_push_breadcrumb(elgg_echo('announcements:site'), elgg_get_site_url() . 'pg/announcements');
-	
+	elgg_push_breadcrumb(elgg_echo('announcements:site'), 'pg/announcements');
+	elgg_push_context('announcements');
+
+	$pages_root = dirname(__FILE__) . '/pages/announcements';
 	$page_type = $page[0];
+	
 	switch ($page_type) {
 		case 'edit':
 			announcement_gatekeeper();
-			$title = elgg_echo('announcements:title:edit');
-			elgg_push_breadcrumb($title);
-			$announcement = get_entity($page[1]);
-			if ($announcement && $announcement->getSubtype() == 'announcement') {
-				$content_info['content'] = elgg_view_title($title) . elgg_view('forms/announcements/edit', array('entity' => $announcement));
-			} else {
-				register_error(elgg_echo('announcements:error:invalid'));
-				forward(REFERER);
-			}
+			$guid = $page[1];
+			set_input('guid', $guid);
+			include "$pages_root/edit.php";
 			break;
+
 		case 'add':
 			announcement_gatekeeper();
-			$title = elgg_echo('announcements:title:create');
-			elgg_push_breadcrumb($title);
-			$content_info['content'] = elgg_view_title($title) . elgg_view('forms/announcements/edit');
+			include "$pages_root/add.php";
 			break;
+
 		case 'view':
+			announcement_gatekeeper();
+			$guid = $page[1];
+			set_input('guid', $guid);
+			include "$pages_root/view.php";
+			break;
+
 			announcement_gatekeeper();
 			$announcement = get_entity($page[1]);
 			if ($announcement && $announcement->getSubtype() == 'announcement') {
@@ -95,6 +101,7 @@ function announcements_page_handler($page) {
 				forward(REFERER);
 			}
 			break;
+			
 		case 'ajax_list':
 			// Todo: check if we're coming from XHR
 			// Might have recieved a shared_access guid
@@ -105,23 +112,16 @@ function announcements_page_handler($page) {
 			}
 			exit;
 			break;
+			
 		case 'all':
 		default:
 			announcement_gatekeeper();
-			$title = elgg_echo('announcements');
-			$content_info['content'] = elgg_view('page_elements/content_header', array('tabs' => array(), 'type' => 'announcement', 'new_link' => elgg_get_site_url() . 'pg/announcements/add'));
-			$announcements = elgg_list_entities(array('type' => 'object', 'subtype' => 'announcement', 'limit' => 9999, 'full_view' => false));
-			if ($announcements) {
-				$content_info['content'] .= $announcements;
-			} else {
-				$content_info['content'] .= elgg_view('announcements/noresults');
-			}
+			include "$pages_root/all.php";
 			break;
 	}
 
-	$content = elgg_view('navigation/breadcrumbs') . $content_info['content'];
-	$body = elgg_view_layout('one_column_with_sidebar', $content, $sidebar);
-	echo elgg_view_page($title, $body);
+	elgg_pop_context();
+	return true;
 }
 
 /**
@@ -132,47 +132,5 @@ function announcements_page_handler($page) {
  */
 function announcement_url($entity) {
 	$title = elgg_get_friendly_title($entity->title);
-	return elgg_get_site_url() . "pg/announcements/view/{$entity->guid}/$title";
-}
-
-/** 
- * Announcement Gatekeeper function, allows custom permissions
- */ 
-function announcement_gatekeeper() {		
-	gatekeeper();							
-	if (!can_user_manage_announcements()) {
-		forward();
-	}
-   }
-
-/** 
- * Helper function to check if a user is allowed to create/manage announcements
- * @return bool
- */
-function can_user_manage_announcements() {
-	// Don't bother checking for admins
-	if (isadminloggedin()) {
-		return true;
-	}
-	// Will be true for whitelist, false for blacklist
-	$access_toggle = get_plugin_setting('usertoggle', 'announcements');
-
-	$user_list = get_plugin_setting('userlist','announcements');
-	$user_list = explode("\n", $user_list);
-
-	$user = get_loggedin_user();
-
-	if (in_array($user->username, $user_list)) {
-		$user_in_list = true;
-	}
-
-	if ($access_toggle) {
-		// Whitelist
-		$allowed = $user_in_list ? true:false;
-	} else {
-		// Blacklist
-		$allowed = $user_in_list ? false:true;
-	}
-	
-	return $allowed;
+	return elgg_get_site_url() . "announcements/view/{$entity->guid}/$title";
 }

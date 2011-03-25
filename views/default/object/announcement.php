@@ -10,35 +10,31 @@
  * 
  */
 
-$announcement = (isset($vars['entity'])) ? $vars['entity'] : FALSE;
+$announcement = elgg_extract('entity', $vars, false);
+$full_view = elgg_extract('full', $vars, false);
 
 if (!$announcement) {
 	return '';
 }
 
 $owner = get_entity($announcement->owner_guid);
-$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
+$owner_icon = elgg_view_entity_icon($owner, 'tiny');
+
 $owner_link = "<a href=\"{$owner->getURL()}\">{$owner->name}</a>";
-$author_text = sprintf(elgg_echo('announcements:author_by_line'), $owner_link);
+$author_text = elgg_echo('announcements:author_by_line', array($owner_link));
 $linked_title = "<a href=\"{$announcement->getURL()}\" title=\"" . htmlentities($announcement->title) . "\">{$announcement->title}</a>";
 $date = elgg_view_friendly_time($announcement->time_updated);
 
-if ($announcement->canEdit()) {
-	$edit_url = elgg_get_site_url()."pg/announcements/edit/{$announcement->getGUID()}/";
-	$edit_link = "<span class='entity_edit'><a href=\"$edit_url\">" . elgg_echo('edit') . '</a></span>';
-
-	$delete_url = elgg_get_site_url()."action/announcements/delete?guid={$announcement->getGUID()}";
-	$delete_link = "<span class='delete_button'>" . elgg_view('output/confirmlink', array(
-		'href' => $delete_url,
-		'text' => elgg_echo('delete'),
-		'confirm' => elgg_echo('deleteconfirm')
-	)) . "</span>";
-
-	$edit .= "$edit_link $delete_link";
-}
+$metadata = elgg_view_menu('entity', array(
+	'entity' => $vars['entity'],
+	'handler' => 'announcements',
+	'sort_by' => 'priority',
+	'class' => 'elgg-menu-hz',
+));
 
 // include a view for plugins to extend
-$edit = elgg_view("announcements/options", array("object_type" => 'announcement', 'entity' => $announcement)) . $edit;
+// @todo this should be extended by adding to the menu.
+$metadata = elgg_view("announcements/options", array("object_type" => 'announcement', 'entity' => $announcement)) . $metadata;
 
 if ($vars['full']) {
 	$announcement_viewers = elgg_view('announcements/announcement_viewers', array('entity' => $announcement));
@@ -64,7 +60,7 @@ if ($vars['full']) {
 	</div>
 ___END;
 } else {
-	echo <<<___END
+	$content = <<<___END
 	<div class="announcement entity_listing clearfix">
 	<div class="entity_listing_icon">
 		$owner_icon
@@ -79,5 +75,14 @@ ___END;
 	</div>
 	</div>
 ___END;
+
+	$params = array(
+		'entity' => $announcement,
+		'metadata' => $metadata,
+		'subtitle' => $subtitle,
+		'content' => elgg_get_excerpt($announcement->description),
+	);
+	
+	$body = elgg_view('page/components/summary', $params);
+	echo elgg_view_image_block($owner_icon, $body);
 }
-?>

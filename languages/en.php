@@ -28,11 +28,9 @@ $english = array(
 	'announcements:label:usersviewed' => 'Viewed By:',
 
 	// Messages
-	'announcements:success:create' => 'Successfully created new announcement',
-	'announcements:success:edit' => 'Successfully edited announcement',
+	'announcements:success:save' => 'Successfully saved the announcement',
 	'announcements:success:delete' => 'Successfully deleted announcement',
-	'announcements:error:create' => 'There was an error creating the announcement',
-	'announcements:error:edit' => 'There was an error editing the announcement',
+	'announcements:error:save' => 'There was an error saving the announcement',
 	'announcements:error:delete' => 'There was an error deleting the announcement',
  	'announcements:error:requiredfields' => 'One or more required fields are missing',
 	'announcements:error:invalid' => 'Invalid announcement',
@@ -48,4 +46,4 @@ $english = array(
 	'announcements:viewed_by' => "%s of %s %s users have viewed this announcement (%s)",
 );
 
-add_translation('en',$english);
+add_translation('en', $english);
