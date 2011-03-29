@@ -9,7 +9,6 @@
  * @link http://www.thinkglobalschool.com/
  * 
  */
-
 elgg_register_event_handler('init', 'system', 'announcements_init');
 
 function announcements_init() {

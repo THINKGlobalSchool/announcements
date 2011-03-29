@@ -10,6 +10,11 @@
  * 
  */
 
+// don't show to logged out users
+if (!elgg_is_logged_in()) {
+	return '';
+}
+
 // Grab announcements
 $announcements = elgg_get_entities(array(
 	'type' => 'object',

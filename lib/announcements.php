@@ -65,6 +65,11 @@ function announcement_gatekeeper() {
  * @return bool
  */
 function can_user_manage_announcements() {
+	// must be logged in
+	if (!elgg_is_logged_in()) {
+		return false;
+	}
+	
 	// Don't bother checking for admins
 	if (elgg_is_admin_logged_in()) {
 		return true;

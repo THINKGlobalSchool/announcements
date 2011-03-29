@@ -22,8 +22,10 @@ elgg.announcements.close = function(e) {
 		var url = $(this).attr('href');
 
 		elgg.action(url, {
-			success: function() {
-				$announcement.fadeOut('slow');
+			success: function(json) {
+				if (json.result) {
+					$announcement.fadeOut('slow');
+				}
 			}
 		});
 	}
