@@ -24,11 +24,17 @@ function announcements_init() {
 	elgg_register_page_handler('announcements', 'announcements_page_handler');
 	
 	// Extend CSS
-	elgg_extend_view('css/screen', 'announcements/css');
+	elgg_extend_view('css/elgg', 'announcements/css');
+
+	// Extend JS
+	elgg_extend_view('js/elgg', 'js/announcements');
 	
 	// Extend river dashboard container
-	elgg_extend_view('riverdashboard/container', 'announcements/announcement_container', 350);
-	
+	elgg_extend_view('riverdashboard/container', 'announcements/announcement_list', 350);
+
+	// also extend the core activity
+	elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
+
 	// Extend shared_
 	elgg_extend_view('shared_access/shared_access_topbar', 'announcements/announcement_container', 9999);
 	
@@ -88,29 +94,6 @@ function announcements_page_handler($page) {
 			$guid = $page[1];
 			set_input('guid', $guid);
 			include "$pages_root/view.php";
-			break;
-
-			announcement_gatekeeper();
-			$announcement = get_entity($page[1]);
-			if ($announcement && $announcement->getSubtype() == 'announcement') {
-				$title = $announcement->title;
-				elgg_push_breadcrumb($title);
-				$content_info['content'] = elgg_view_entity($announcement, true);
-			} else {
-				register_error(elgg_echo('announcements:error:invalid'));
-				forward(REFERER);
-			}
-			break;
-			
-		case 'ajax_list':
-			// Todo: check if we're coming from XHR
-			// Might have recieved a shared_access guid
-			if ($page[1] && $sac = get_entity($page[1])) {
-				echo elgg_view('announcements/announcement_list', array('sac' => $sac));
-			} else {
-				echo elgg_view('announcements/announcement_list');
-			}
-			exit;
 			break;
 			
 		case 'all':

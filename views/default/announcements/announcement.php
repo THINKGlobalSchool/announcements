@@ -11,8 +11,8 @@
  */
 
 $announcement = $vars['entity'];
-$action_url = elgg_get_site_url() . 'action/announcements/close?guid=' . $vars['entity']->getGUID();
-$action_url = elgg_add_action_tokens_to_url($action_url);
+$close_url = elgg_get_site_url() . 'action/announcements/close?guid=' . $vars['entity']->getGUID();
+$close_url = elgg_add_action_tokens_to_url($close_url);
 		
 switch ($announcement->access_id) {
 	case -1: 
@@ -35,33 +35,20 @@ switch ($announcement->access_id) {
 		$access_content = $acl->name;
 		break;
 }
-	
-$close_text = elgg_echo('announcements:label:close')
 
-?>
-<div class='announcement' id='announcement-<?php echo $vars['entity']->getGUID(); ?>'>
-	<div class='announcement-content'> 
-		<div class='announcement-content-title'>
-			<h3><?php echo $announcement->title; ?></h3>
-		</div>
-		<div class='announcement-actions'>
-			<a class='close-announcement' id='<?php echo $vars['entity']->getGUID(); ?>'><?php echo $close_text; ?> <span class='close-announcement-button'>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-		</div>
-		<div style='clear: both;'></div>
-		<div class='announcement-content-body'><?php echo $announcement->description; ?></div>
-	</div>
-	<div style='clear: both;'></div>
-	<div class='announcement-access-display'>
-		<?php echo $access_content; ?>
-	</div> 
-	<div style='clear: both;'></div>
-</div>
+$title = <<<___HTML
+$announcement->title
+<a class="elgg-announcement-close" href="$close_url"><span class="elgg-icon elgg-icon-delete right"></span></a>
+___HTML;
 
+$body = <<<___HTML
+$announcement->description
+<span class="right clearfix elgg-announcement-access-display">$access_content</span>
+___HTML;
 
-<script type='text/javascript'>
-$(function() {
-	$(".announcement-actions #<?php echo $vars['entity']->getGUID(); ?>").click(function() {
-		remove_and_close_announcement("<?php echo $vars['entity']->getGUID(); ?>");
-	});
-});
-</script>
+$options = array(
+	'id' => 'announcement-' . $announcement->getGUID(),
+	'class' => 'elgg-announcement'
+);
+
+echo elgg_view_module('featured', $title, $body, $options);

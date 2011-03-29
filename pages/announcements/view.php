@@ -17,7 +17,7 @@ elgg_push_breadcrumb($title);
 $body = elgg_view_layout('content', array(
 	'filter' => '',
 	'buttons' => '',
-	'content' => elgg_view_entity($announcement),
+	'content' => elgg_view_entity($announcement, array('full_view' => true)),
 	'title' => $title,
 ));
 

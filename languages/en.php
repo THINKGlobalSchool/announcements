@@ -16,7 +16,7 @@ $english = array(
 	'announcement' => 'Announcements',
 	'announcements' => 'Announcements',
 	'announcements:site' => 'All Site Announcements',
-	'announcement:new' => 'Create New Announcement',
+	'announcements:add' => 'New Announcement',
 	
 	// Page titles 
 	'announcements:title:create' => 'Create New Announcement',
@@ -40,6 +40,8 @@ $english = array(
 	'announcements:label:userlist' => 'User List',
 	'announcements:label:viewstats' => 'Stats:',
 	'announcements:label:close' => 'Close',
+	'announcements:label:no_results' => 'No Announcements',
+	'announcements:confirmation:close' => 'Close this announcement?',
 	
 	// Other content
 	'announcements:author_by_line' => 'By %s',

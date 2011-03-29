@@ -11,18 +11,33 @@
 	 */
 ?>
 
-div#announcement-container {
-	
+
+span.elgg-announcement-access-display {
+	line-height:1.4em;
+    font-size: 11px;
+    color: #666666;
+    float: right;
+	margin-right: 8px;
+	margin-top: -15px;
+	margin-bottom: 4px;
 }
 
-div#announcement-container div.announcement {
-	height: auto;
-	width: 100%;
-	margin: 8px;
+div.elgg-announcement-description {
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+
+	margin: 10px auto;
+	padding: 10px 0;
+}
+
+
+/*
+
+@todo this is left in so life will be easier for retheming.
+
+.elgg-announcement {
 	border: 2px solid #AE002D;
 	background: #ededed;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
 }
 
 div#announcement-container div.announcement:hover {
@@ -65,49 +80,7 @@ div.announcement-actions a.close-announcement {
 	font-size: 90%;
 }
 
-div.announcement-actions span.close-announcement-button {
-	background: url("http://localhost/elgg-svn/mod/tgstheme/graphics/elgg_sprites.png") no-repeat scroll -200px -16px transparent;
-	height: 14px;
-	width: 14px;
-	text-align: left;
-	text-indent: -9000px;
-	display: inline;
-}
-
 div.announcement-actions a.close-announcement:hover {
 	cursor: pointer;
 }
-
-div.announcement-description {
-	border-top: 1px solid #CCCCCC;
-	margin-top: 10px;
-	padding-top: 10px;
-}
-
-div.announcement-view-stats {
-	border-top: 1px solid #CCCCCC;
-	margin-top: 10px;
-	padding-top: 10px;	
-}
-
-div.announcement-viewers {
-	border-top: 1px solid #CCCCCC;
-	margin-top: 10px;
-	padding-top: 10px;	
-}
-
-div.announcement-access-display {
-	line-height:1.4em;
-    font-size: 11px;
-    color: #666666;
-    float: right;
-	margin-right: 8px;
-	margin-top: -15px;
-	margin-bottom: 4px;
-}
-
-span.viewers-text {
-	display: block;
-	margin-top: 6px;
-	margin-bottom: 10px;
-}
+*/

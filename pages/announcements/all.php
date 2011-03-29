@@ -21,7 +21,8 @@ if ($announcements) {
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',
-	'buttons' => '',
+	// hide the add button if users can't add
+	'buttons' => (can_user_manage_announcements()) ? null : false,
 	'content' => $content,
 	'title' => $title,
 ));

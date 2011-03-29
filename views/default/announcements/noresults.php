@@ -10,12 +10,8 @@
  * 
  */
 ?>
-<div class="margin_top">
-		<center>
-		<b>
-		<?php 
-			echo elgg_echo("todo:label:noresults");
-		?>
-		</b>
-		</center>
+<div class="mtl center">
+	<?php
+		echo elgg_echo('announcements:label:no_results');
+	?>
 </div>

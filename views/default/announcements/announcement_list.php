@@ -11,7 +11,11 @@
  */
 
 // Grab announcements
-$announcements = elgg_get_entities(array('type' => 'object', 'subtype' => 'announcement', 'limit' => 9999));
+$announcements = elgg_get_entities(array(
+	'type' => 'object',
+	'subtype' => 'announcement',
+	'limit' => 9999
+));
 
 foreach($announcements as $announcement) {
 	// We're being viewed under a channel
@@ -20,7 +24,7 @@ foreach($announcements as $announcement) {
 	} 
 	
 	// Check if the announcement has been viewed
-	if (!check_entity_relationship(get_loggedin_userid(), 'has_viewed_announcement', $announcement->getGUID())) {
+	if (!check_entity_relationship(elgg_get_logged_in_user_guid(), 'has_viewed_announcement', $announcement->getGUID())) {
 		$announcements_content .= elgg_view('announcements/announcement', array('entity' => $announcement));
 	}
 }

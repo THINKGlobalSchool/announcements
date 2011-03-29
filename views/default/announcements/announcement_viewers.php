@@ -12,28 +12,50 @@
 
 $announcement = $vars['entity'];
 
-
-echo '<h3>' . elgg_echo('announcements:label:viewstats') . '</h3>';
-
 $ia = elgg_get_ignore_access();
 elgg_set_ignore_access(true);
-if ($announcement->access_id == ACCESS_LOGGED_IN) {
+
+if ($announcement->access_id <= ACCESS_PUBLIC) {
 	// Count all site users
-	$viewers_count = elgg_get_entities(array('type' => 'user','count' => true));
+	$viewers_count = elgg_get_entities(array(
+		'type' => 'user',
+		'subtype' => ELGG_ENTITIES_ANY_VALUE,
+		'count' => true
+	));
+	
 	$context_text = ' site ';
 } else {
-	if (is_plugin_enabled('shared_access')) {
-		// This is stupidly complicated.. but get_members_of_access_collection doesn't work right.
-		// ... so here we are. 
-		$sac = elgg_get_entities_from_metadata(array(
-			'type' => 'object',
-			'subtype' => 'shared_access',
-			'metadata_name' => 'acl_id',
-			'metadata_value' => $announcement->access_id,
-		));
-		$viewers_count = elgg_get_entities_from_relationship(array('relationship' => 'shared_access_member', 'relationship_guid' => $sac[0]->getGUID(), 'inverse_relationship' => TRUE, 'count' => true));
-		$context_text = ' channel ';
+	// This is stupidly complicated.. but get_members_of_access_collection doesn't work right.
+	// ... so here we are.
+	$acl = get_access_collection($announcement->access_id);
+
+	// @todo this will only work for english.
+	$context = (strpos(strtolower($acl->name), 'channel') !== false) ? 'channel' : 'group';
+
+	if ($context == 'channel') {
+		$subtype = 'shared_access';
+		$md_name = 'acl_id';
+		$relationship = 'shared_access_member';
+	} else {
+		$subtype = 'group';
+		$md_name = 'group_acl';
+		$relationship = 'member_of';
 	}
+
+	$obj = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => $subtype,
+		'metadata_name' => $md_name,
+		'metadata_value' => $announcement->access_id,
+	));
+
+	$viewers_count = elgg_get_entities_from_relationship(array(
+		'relationship' => $relationship,
+		'relationship_guid' => $obj[0]->getGUID(),
+		'inverse_relationship' => true,
+		'count' => true
+	));
+
 }	
 elgg_set_ignore_access($ia);
 	
@@ -44,17 +66,24 @@ $viewers = elgg_get_entities_from_relationship(array(
 													'inverse_relationship' => TRUE,
 													'types' => 'user',
 													'limit' => 9999,
-													'offset' => 0,
-													'count' => false,
 												));
 
-//$percentage = number_format((count($viewers) / $viewers_count) * 100, 1);
-												
-echo '<span class="viewers-text">' . sprintf(elgg_echo('announcements:viewed_by'), count($viewers), $viewers_count, $context_text, $percentage . '%')  . '</span>';
+
+$percentage = number_format((count($viewers) / $viewers_count) * 100, 1);
+
+echo '<h3 class="pbs">' . elgg_echo('announcements:label:viewstats') . '</h3>';
+
+echo '<span class="viewers-text">'
+	. elgg_echo('announcements:viewed_by', array(count($viewers), $viewers_count, $context, $percentage . '%'))
+	. '</span>';
 												
 
-echo "<h3>" . elgg_echo('announcements:label:usersviewed') . "</h3>";
+echo '<h3 class="ptm pbs">' . elgg_echo('announcements:label:usersviewed') . '</h3>';
 
-foreach ($viewers as $viewer) {
-	echo '<a href="' . $viewer->getURL() . '">' . $viewer->name . '</a><br />';
+if ($viewers) {
+	echo '<ul>';
+	foreach ($viewers as $viewer) {
+		echo '<li><a href="' . $viewer->getURL() . '">' . $viewer->name . '</a></li>';
+	}
+	echo '</ul>';
 }

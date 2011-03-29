@@ -19,8 +19,7 @@ if ($announcement && $announcement->getSubtype() == 'announcement') {
 	if ($announcement->delete()) {
 		// Success
 		system_message(elgg_echo('announcements:success:delete'));
-		forward(REFERER);
-		
+		forward('pg/announcements/all');
 	} else {
 		// Error
 		register_error(elgg_echo('announcements:error:delete'));
