@@ -17,6 +17,7 @@ $english = array(
 	'announcements' => 'Announcements',
 	'announcements:site' => 'All Site Announcements',
 	'announcements:add' => 'New Announcement',
+	'item:object:announcement' => 'Announcements',
 	
 	// Page titles 
 	'announcements:title:create' => 'Create New Announcement',
