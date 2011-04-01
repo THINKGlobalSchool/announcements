@@ -49,17 +49,17 @@ function announcements_init() {
 	// Check if we're allowed to see announcements
 	if (can_user_manage_announcements()) {
 		// Add to main menu
-		add_menu(elgg_echo('announcements'), elgg_get_site_url() . 'pg/announcements');
+		add_menu(elgg_echo('announcements'), elgg_get_site_url() . 'announcements');
 	}
 }
 
 /**
  * Dispatches announcements pages
  * URLs take the form of
- *  All announcements:       pg/announcements/all
- *  View announcement:       pg/announcements/view/<guid>/<title>
- *  New announcement:        pg/announcements/add/<guid>
- *  Edit announcement:       pg/announcements/edit/<guid>
+ *  All announcements:       announcements/all
+ *  View announcement:       announcements/view/<guid>/<title>
+ *  New announcement:        announcements/add/<guid>
+ *  Edit announcement:       announcements/edit/<guid>
  *
  * Title is ignored
  *
@@ -69,7 +69,7 @@ function announcements_init() {
 function announcements_page_handler($page) {
 	
 	// Initial breadcrumb
-	elgg_push_breadcrumb(elgg_echo('announcements:site'), 'pg/announcements');
+	elgg_push_breadcrumb(elgg_echo('announcements:site'), 'announcements');
 	elgg_push_context('announcements');
 
 	$pages_root = dirname(__FILE__) . '/pages/announcements';

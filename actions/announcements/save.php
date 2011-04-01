@@ -37,7 +37,7 @@ $announcement->access_id = $access_id;
 
 if ($announcement->save()) {
 	system_message(elgg_echo('announcements:success:save'));
-	forward('pg/announcements/all');
+	forward('announcements/all');
 } else {
 	register_error(elgg_echo('announcements:error:save'));
 	forward(REFERER);
