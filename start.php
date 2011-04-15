@@ -30,6 +30,11 @@ function announcements_init() {
 	
 	// Extend river dashboard container
 	elgg_extend_view('riverdashboard/container', 'announcements/announcement_list', 350);
+	
+	// Add announcements to parent portal, if enabled
+	if (elgg_is_active_plugin('parentportal')) {
+		elgg_extend_view('parentportal/extend_right', 'announcements/announcement_list');
+	}
 
 	// also extend the core activity
 	elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
