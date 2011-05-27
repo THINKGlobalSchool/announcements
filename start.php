@@ -54,7 +54,8 @@ function announcements_init() {
 	// Check if we're allowed to see announcements
 	if (can_user_manage_announcements()) {
 		// Add to main menu
-		add_menu(elgg_echo('announcements'), elgg_get_site_url() . 'announcements');
+		$item = new ElggMenuItem('announcements', elgg_echo('announcements'), 'announcements');
+		elgg_register_menu_item('site', $item);
 	}
 }
 
