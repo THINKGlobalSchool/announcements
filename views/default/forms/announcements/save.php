@@ -36,8 +36,7 @@ $container_hidden = elgg_view('input/hidden', array('name' => 'container_guid', 
 $entity_hidden = elgg_view('input/hidden', array('name' => 'guid', 'value' => $guid));
 
 // Build Form Body
-$form_body = <<<EOT
-
+$form_body = <<<HTML
 <div>
 	<div>
 		<label>$title_label</label><br />
@@ -51,13 +50,12 @@ $form_body = <<<EOT
 		<label>$access_label</label><br />
         $access_input
 	</div><br />
-	<div>
+	<div class="elgg-form-footer-alt">
 		$submit_input
 		$container_hidden
 		$entity_hidden
 	</div>
 </div>
-	
-EOT;
+HTML;
 
 echo $form_body;
