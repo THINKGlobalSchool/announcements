@@ -56,7 +56,7 @@ if ($full_view) {
 		'metadata' => $metadata,
 		'subtitle' => $subtitle,
 	);
-	$list_body = elgg_view('page/components/summary', $params);
+	$list_body = elgg_view('object/elements/summary', $params);
 
 	$info = elgg_view_image_block($owner_icon, $list_body);
 
@@ -75,6 +75,6 @@ ___HTML;
 		'content' => elgg_get_excerpt($announcement->description),
 	);
 	
-	$body = elgg_view('page/components/summary', $params);
+	$body = elgg_view('object/elements/summary', $params);
 	echo elgg_view_image_block($owner_icon, $body);
 }
