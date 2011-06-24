@@ -23,12 +23,15 @@ $title_input = elgg_view('input/text', array('name' => 'title', 'value' => $titl
 $description_label = elgg_echo("description");
 $description_input = elgg_view("input/longtext", array('name' => 'description', 'value' => $description));
 
-$access_label = elgg_echo('access');
-$access_input = elgg_view('input/access', array(
-	'name' => 'access_id',
-	'id' => 'access_id',
-	'value' => $access_id
-));
+// Only display access input for non groups
+if (!elgg_instanceof(elgg_get_page_owner_entity(), 'group')) {
+	$access_label = elgg_echo('access');
+	$access_input = elgg_view('input/access', array(
+		'name' => 'access_id',
+		'id' => 'access_id',
+		'value' => $access_id
+	));
+}
 
 $submit_input = elgg_view('input/submit', array('name' => 'submit', 'value' => elgg_echo('save')));
 

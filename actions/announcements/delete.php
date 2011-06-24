@@ -16,10 +16,16 @@ $announcement_guid = get_input('guid');
 $announcement = get_entity($announcement_guid);
 
 if ($announcement && $announcement->getSubtype() == 'announcement') {
+	$container = $announcement->getContainerEntity();
 	if ($announcement->delete()) {
 		// Success
 		system_message(elgg_echo('announcements:success:delete'));
-		forward('announcements/all');
+		if (elgg_instanceof($container, 'group')) {
+			forward("announcements/group/{$container->guid}/all");
+		} else {
+			forward('announcements/all');
+		}
+		
 	} else {
 		// Error
 		register_error(elgg_echo('announcements:error:delete'));

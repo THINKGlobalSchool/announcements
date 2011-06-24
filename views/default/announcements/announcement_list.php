@@ -15,19 +15,26 @@ if (!elgg_is_logged_in()) {
 	return '';
 }
 
-// Grab announcements
-$announcements = elgg_get_entities(array(
+$options = array(
 	'type' => 'object',
 	'subtype' => 'announcement',
-	'limit' => 9999
-));
+	'limit' => 25,
+);
 
-foreach($announcements as $announcement) {
-	// We're being viewed under a channel
-	if ($vars['sac'] && $vars['sac']->acl_id != $announcement->access_id) {
-		continue;
-	} 
-	
+// If we're viewing as a group
+if (elgg_instanceof(elgg_get_page_owner_entity(), 'group')) {
+	$options['container_guid'] = elgg_get_page_owner_guid();
+} else if ($vars['container_guid']) { // Or supplied
+	$options['container_guid'] = $vars['container_guid'];
+}
+
+
+// Grab announcements
+$announcements = elgg_get_entities($options);
+
+
+
+foreach($announcements as $announcement) {	
 	// Check if the announcement has been viewed
 	if (!check_entity_relationship(elgg_get_logged_in_user_guid(), 'has_viewed_announcement', $announcement->getGUID())) {
 		$announcements_content .= elgg_view('announcements/announcement', array('entity' => $announcement));

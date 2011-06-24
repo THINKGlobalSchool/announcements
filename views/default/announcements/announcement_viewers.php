@@ -25,36 +25,10 @@ if ($announcement->access_id <= ACCESS_PUBLIC) {
 	
 	$context_text = ' site ';
 } else {
-	// This is stupidly complicated.. but get_members_of_access_collection doesn't work right.
-	// ... so here we are.
-	$acl = get_access_collection($announcement->access_id);
-
-	// @todo this will only work for english.
-	$context = (strpos(strtolower($acl->name), 'channel') !== false) ? 'channel' : 'group';
-
-	if ($context == 'channel') {
-		$subtype = 'shared_access';
-		$md_name = 'acl_id';
-		$relationship = 'shared_access_member';
-	} else {
-		$subtype = 'group';
-		$md_name = 'group_acl';
-		$relationship = 'member_of';
-	}
-
-	$obj = elgg_get_entities_from_metadata(array(
-		'type' => 'object',
-		'subtype' => $subtype,
-		'metadata_name' => $md_name,
-		'metadata_value' => $announcement->access_id,
-	));
-
-	$viewers_count = elgg_get_entities_from_relationship(array(
-		'relationship' => $relationship,
-		'relationship_guid' => $obj[0]->getGUID(),
-		'inverse_relationship' => true,
-		'count' => true
-	));
+	
+	$group = $announcement->getContainerEntity();
+	
+	$viewers_count = $group->getMembers(0, 0, TRUE);
 
 }	
 elgg_set_ignore_access($ia);

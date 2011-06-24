@@ -13,7 +13,7 @@ elgg_register_event_handler('init', 'system', 'announcements_init');
 
 function announcements_init() {
 	$plugin_root = dirname(__FILE__);
-
+	
 	// register and use the lib
 	$lib_path = "$plugin_root/lib/announcements.php";
 	elgg_register_library('announcements', $lib_path);
@@ -31,16 +31,11 @@ function announcements_init() {
 	// Extend river dashboard container
 	elgg_extend_view('riverdashboard/container', 'announcements/announcement_list', 350);
 	
-	// Add announcements to parent portal, if enabled
-	if (elgg_is_active_plugin('parentportal')) {
-		elgg_extend_view('parentportal/extend_right', 'announcements/announcement_list');
-	}
-
 	// also extend the core activity
 	elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
-
-	// Extend shared_
-	elgg_extend_view('shared_access/shared_access_topbar', 'announcements/announcement_container', 9999);
+	
+	// Extend groups summary 
+	elgg_extend_view('groups/profile/summary', 'announcements/announcement_list', -1);
 	
 	// Register actions
 	$action_base = $plugin_root . '/actions/announcements';
@@ -50,6 +45,12 @@ function announcements_init() {
 	
 	// Register URL handler
 	elgg_register_entity_url_handler('object', 'announcement', 'announcement_url');
+	
+	// Group announcements owner block 
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'announcements_owner_block_menu');
+	
+	// add the group announcements option
+    add_group_tool_option('announcements',elgg_echo('groups:enableannouncements'),true);
 	
 	// Check if we're allowed to see announcements
 	if (can_user_manage_announcements()) {
@@ -75,7 +76,7 @@ function announcements_init() {
 function announcements_page_handler($page) {
 	
 	// Initial breadcrumb
-	elgg_push_breadcrumb(elgg_echo('announcements:site'), 'announcements');
+	elgg_push_breadcrumb(elgg_echo('announcements'), 'announcements');
 	elgg_push_context('announcements');
 
 	$pages_root = dirname(__FILE__) . '/pages/announcements';
@@ -83,22 +84,24 @@ function announcements_page_handler($page) {
 	
 	switch ($page_type) {
 		case 'edit':
-			announcement_gatekeeper();
 			$guid = $page[1];
 			set_input('guid', $guid);
 			include "$pages_root/edit.php";
 			break;
 
 		case 'add':
-			announcement_gatekeeper();
 			include "$pages_root/add.php";
 			break;
 
 		case 'view':
-			announcement_gatekeeper();
 			$guid = $page[1];
 			set_input('guid', $guid);
 			include "$pages_root/view.php";
+			break;
+		case 'group':
+			$guid = $page[1];
+			set_input('group_guid', $guid);
+			include "$pages_root/group.php";
 			break;
 			
 		case 'all':
@@ -121,4 +124,23 @@ function announcements_page_handler($page) {
 function announcement_url($entity) {
 	$title = elgg_get_friendly_title($entity->title);
 	return elgg_get_site_url() . "announcements/view/{$entity->guid}/$title";
+}
+
+/**
+ * Plugin hook to add polls's to groups profile block
+ * 	
+ * @param unknown_type $hook
+ * @param unknown_type $type
+ * @param unknown_type $return
+ * @param unknown_type $params
+ * @return unknown
+ */
+function announcements_owner_block_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'group') && $params['entity']->announcements_enable == 'yes' && $params['entity']->canEdit()) {
+		$url = elgg_get_site_url() . "announcements/group/{$params['entity']->guid}/all";
+		$item = new ElggMenuItem('announcements', elgg_echo('announcements:group'), $url);
+		$return[] = $item;
+	} 
+
+	return $return;
 }

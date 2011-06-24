@@ -15,9 +15,11 @@ $english = array(
 	// Generic
 	'announcement' => 'Announcements',
 	'announcements' => 'Announcements',
-	'announcements:site' => 'All Site Announcements',
 	'announcements:add' => 'New Announcement',
 	'item:object:announcement' => 'Announcements',
+	'groups:enableannouncements' => 'Enable group announcements',
+	'announcements:group' => 'Group announcements',
+
 	
 	// Page titles 
 	'announcements:title:create' => 'Create New Announcement',

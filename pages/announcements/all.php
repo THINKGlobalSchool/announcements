@@ -8,8 +8,7 @@ $title = elgg_echo('announcements');
 $announcements = elgg_list_entities(array(
 	'type' => 'object',
 	'subtype' => 'announcement',
-	// @todo why?
-	'limit' => 9999,
+	'limit' => 0,
 	'full_view' => false
 ));
 
