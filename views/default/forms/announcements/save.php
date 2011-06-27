@@ -53,7 +53,7 @@ $form_body = <<<HTML
 		<label>$access_label</label><br />
         $access_input
 	</div><br />
-	<div class="elgg-form-footer-alt">
+	<div class="elgg-foot">
 		$submit_input
 		$container_hidden
 		$entity_hidden
