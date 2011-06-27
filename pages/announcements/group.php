@@ -32,11 +32,12 @@ if ($announcements) {
 	$content = elgg_view('announcements/noresults');
 }
 
-
+if ($group->canEdit()) {
+	elgg_register_add_button();
+}
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',
-	'buttons' => ($group->canEdit()) ? null : false,
 	'content' => $content,
 	'title' => $title,
 ));

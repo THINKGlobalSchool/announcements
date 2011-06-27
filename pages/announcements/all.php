@@ -18,10 +18,13 @@ if ($announcements) {
 	$content = elgg_view('announcements/noresults');
 }
 
+// Add button 
+if (can_user_manage_announcements()) {
+	elgg_register_add_button();
+}
+
 $body = elgg_view_layout('content', array(
 	'filter' => '',
-	// hide the add button if users can't add
-	'buttons' => (can_user_manage_announcements()) ? null : false,
 	'content' => $content,
 	'title' => $title,
 ));
