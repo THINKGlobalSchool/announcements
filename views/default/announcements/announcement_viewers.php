@@ -28,8 +28,12 @@ if ($announcement->access_id <= ACCESS_PUBLIC) {
 	
 	$group = $announcement->getContainerEntity();
 	
-	$viewers_count = $group->getMembers(0, 0, TRUE);
-
+	// Make sure we have a group
+	if (elgg_instanceof($group, 'group')) {
+		$viewers_count = $group->getMembers(0, 0, TRUE);
+	} else {
+		$viewers_count = 1;
+	}
 }	
 elgg_set_ignore_access($ia);
 	
