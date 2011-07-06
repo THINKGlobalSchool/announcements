@@ -33,7 +33,7 @@ if ($announcements) {
 }
 
 if ($group->canEdit()) {
-	elgg_register_add_button();
+	elgg_register_title_button();
 }
 
 $body = elgg_view_layout('content', array(
