@@ -52,6 +52,7 @@ div.announcement-image {
 	margin: 10px;
 }
 
+
 div.announcement-content {
 	margin: 10px;
 	padding-bottom: 5px;

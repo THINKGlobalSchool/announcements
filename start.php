@@ -29,10 +29,10 @@ function announcements_init() {
 	elgg_extend_view('js/elgg', 'js/announcements');
 	
 	// Extend river dashboard container
-	elgg_extend_view('riverdashboard/container', 'announcements/announcement_list', 350);
+	//elgg_extend_view('riverdashboard/container', 'announcements/announcement_list', 350);
 	
 	// also extend the core activity
-	elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
+	//elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
 	
 	// Extend groups summary 
 	elgg_extend_view('groups/profile/summary', 'announcements/announcement_list', -1);

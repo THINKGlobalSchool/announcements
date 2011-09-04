@@ -48,7 +48,7 @@ ___HTML;
 
 $options = array(
 	'id' => 'announcement-' . $announcement->getGUID(),
-	'class' => 'elgg-announcement'
+	'class' => 'elgg-announcement elgg-output'
 );
 
 echo elgg_view_module('featured', $title, $body, $options);
