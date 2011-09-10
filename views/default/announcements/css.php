@@ -17,9 +17,7 @@ span.elgg-announcement-access-display {
     font-size: 11px;
     color: #666666;
     float: right;
-	margin-right: 8px;
-	margin-top: -15px;
-	margin-bottom: 4px;
+	margin-bottom: -5px;
 }
 
 div.elgg-announcement-description {
