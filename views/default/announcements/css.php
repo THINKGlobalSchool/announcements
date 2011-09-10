@@ -30,6 +30,9 @@ div.elgg-announcement-description {
 	padding: 10px 0;
 }
 
+.elgg-announcement-close {
+	float: right;
+}
 
 /*
 

@@ -38,7 +38,7 @@ switch ($announcement->access_id) {
 
 $title = <<<___HTML
 $announcement->title
-<a class="elgg-announcement-close" href="$close_url"><span class="elgg-icon elgg-icon-delete right"></span></a>
+<a class="elgg-announcement-close" href="$close_url">Close&nbsp;<span class="elgg-icon elgg-icon-delete right"></span></a>
 ___HTML;
 
 $body = <<<___HTML
