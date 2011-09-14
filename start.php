@@ -35,7 +35,7 @@ function announcements_init() {
 	//elgg_extend_view('core/river/filter', 'announcements/announcement_list', -1);
 	
 	// Extend groups summary 
-	elgg_extend_view('groups/profile/summary', 'announcements/announcement_list', -1);
+	elgg_extend_view('groups/profile/summary', 'announcements/announcement_list', 501);
 	
 	// Register actions
 	$action_base = $plugin_root . '/actions/announcements';
