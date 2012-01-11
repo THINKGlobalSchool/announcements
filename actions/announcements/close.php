@@ -16,7 +16,7 @@ $announcement_guid = get_input('guid');
 $announcement = get_entity($announcement_guid);
 
 if ($announcement && $announcement->getSubtype() == 'announcement') {
-	$user = get_loggedin_user();
+	$user = elgg_get_logged_in_user_entity();
 	$success = true;
 	if (!check_entity_relationship($user->getGUID(), 'has_viewed_announcement', $announcement->getGUID())) {
 		$success = add_entity_relationship($user->getGUID(), 'has_viewed_announcement', $announcement->getGUID());

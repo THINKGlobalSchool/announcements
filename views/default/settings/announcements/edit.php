@@ -13,8 +13,8 @@
 <p>
     <label><?php echo elgg_echo('announcements:label:usertoggle'); ?></label><br />
     <?php 
-	echo elgg_view('input/pulldown', array(
-										'internalname' => 'params[usertoggle]', 
+	echo elgg_view('input/dropdown', array(
+										'name' => 'params[usertoggle]', 
 										'value' => $vars['entity']->usertoggle, 
 										'options_values' => array(0 => elgg_echo('announcements:label:blacklist'), 1 => elgg_echo('announcements:label:whitelist')))
 										);
@@ -24,7 +24,7 @@
     <label><?php echo elgg_echo('announcements:label:userlist'); ?></label><br />
     <?php 
 	echo elgg_view('input/plaintext', array(
-										'internalname' => 'params[userlist]', 
+										'name' => 'params[userlist]', 
 										'value' => $vars['entity']->userlist)
 										); 
 	?>
