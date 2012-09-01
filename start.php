@@ -163,9 +163,15 @@ function announcements_entity_menu($hook, $type, $return, $params) {
 	if (elgg_instanceof($params['entity'], 'object', 'announcement')) {
 		$expiry_date = $params['entity']->expiry_date;
 		if ($expiry_date != ANNOUNCEMENTS_NEVER_EXPIRE) {
+			if ($expiry_date <= time()) {
+				$label = elgg_echo('announcements:label:expired');
+			} else {
+				$label = elgg_echo('announcements:label:expires', array(date('F j, Y', $expiry_date)));
+			}
+			
 			$options = array(
 				'name' => 'expiry',
-				'text' => elgg_echo('announcements:label:expires', array(date('F j, Y', $expiry_date))),
+				'text' => $label,
 				'href' => FALSE,
 				'priority' => 1,
 				'section' => 'info',
