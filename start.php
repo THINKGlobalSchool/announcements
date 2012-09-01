@@ -19,6 +19,8 @@ function announcements_init() {
 	elgg_register_library('announcements', $lib_path);
 	elgg_load_library('announcements');
 	
+	define('ANNOUNCEMENTS_NEVER_EXPIRE', '2145938400'); // Jan 1st, 2038
+	
 	// Page handler
 	elgg_register_page_handler('announcements', 'announcements_page_handler');
 	
@@ -48,6 +50,9 @@ function announcements_init() {
 	
 	// Group announcements owner block 
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'announcements_owner_block_menu');
+	
+	// Add entity menu items
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'announcements_entity_menu');
 	
 	// add the group announcements option
     add_group_tool_option('announcements',elgg_echo('groups:enableannouncements'),true);
@@ -127,7 +132,7 @@ function announcement_url($entity) {
 }
 
 /**
- * Plugin hook to add polls's to groups profile block
+ * Plugin hook to add announcements to groups profile block
  * 	
  * @param unknown_type $hook
  * @param unknown_type $type
@@ -140,6 +145,34 @@ function announcements_owner_block_menu($hook, $type, $return, $params) {
 		$url = elgg_get_site_url() . "announcements/group/{$params['entity']->guid}/all";
 		$item = new ElggMenuItem('announcements', elgg_echo('announcements:group'), $url);
 		$return[] = $item;
+	} 
+
+	return $return;
+}
+
+/**
+ * Plugin hook to add entity menu items for announcements
+ * 	
+ * @param unknown_type $hook
+ * @param unknown_type $type
+ * @param unknown_type $return
+ * @param unknown_type $params
+ * @return unknown
+ */
+function announcements_entity_menu($hook, $type, $return, $params) {
+	if (elgg_instanceof($params['entity'], 'object', 'announcement')) {
+		$expiry_date = $params['entity']->expiry_date;
+		if ($expiry_date != ANNOUNCEMENTS_NEVER_EXPIRE) {
+			$options = array(
+				'name' => 'expiry',
+				'text' => elgg_echo('announcements:label:expires', array(date('F j, Y', $expiry_date))),
+				'href' => FALSE,
+				'priority' => 1,
+				'section' => 'info',
+				'link_class' => '',
+			);
+			$return[] = ElggMenuItem::factory($options);
+		}
 	} 
 
 	return $return;

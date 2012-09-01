@@ -45,6 +45,8 @@ $english = array(
 	'announcements:label:close' => 'Close',
 	'announcements:label:no_results' => 'No Announcements',
 	'announcements:confirmation:close' => 'Close this announcement?',
+	'announcements:label:expirydate' => 'Expiry Date',
+	'announcements:label:expires' => 'Expires: %s',
 	
 	// Other content
 	'announcements:author_by_line' => 'By %s',

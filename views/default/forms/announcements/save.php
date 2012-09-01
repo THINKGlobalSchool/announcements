@@ -12,9 +12,11 @@
 
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
+$expiry_date = elgg_extract('expiry_date', $vars);
 $container_guid = elgg_extract('container_guid', $vars);
 $access_id = elgg_extract('access_id', $vars, ACCESS_DEFAULT);
 $guid = elgg_extract('guid', $vars);
+
 
 // Labels/Input
 $title_label = elgg_echo('title');
@@ -32,6 +34,20 @@ if (!elgg_instanceof(elgg_get_page_owner_entity(), 'group')) {
 		'value' => $access_id
 	));
 }
+
+if (!$guid) {
+	// Set a default expiry for new announcements
+	$expiry_date = strtotime(date('d-m-Y', strtotime("+1 week")));
+} else if ($expiry_date == ANNOUNCEMENTS_NEVER_EXPIRE) {
+	// If announcement never expires, don't display the end date
+	$expiry_date = NULL;
+}
+
+$expiry_label = elgg_echo('announcements:label:expirydate');
+$expiry_input = elgg_view('input/date', array(
+	'name' => 'expiry_date', 
+	'value' => $expiry_date,
+));
 
 $submit_input = elgg_view('input/submit', array('name' => 'submit', 'value' => elgg_echo('save')));
 
@@ -52,6 +68,10 @@ $form_body = <<<HTML
 	<div>
 		<label>$access_label</label><br />
         $access_input
+	</div><br />
+	<div>
+		<label>$expiry_label</label><br />
+        $expiry_input
 	</div><br />
 	<div class="elgg-foot">
 		$submit_input

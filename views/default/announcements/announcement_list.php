@@ -30,9 +30,16 @@ if (elgg_instanceof($page_owner, 'group')) {
 	$options['container_guid'] = $vars['container_guid'];
 }
 
+$options['metadata_name_value_pairs'] = array(
+	array(
+		'name' => 'expiry_date', 
+		'value' => time(),
+		'operand' => '>',
+	),
+);
 
 // Grab announcements
-$announcements = elgg_get_entities($options);
+$announcements = elgg_get_entities_from_metadata($options);
 
 foreach($announcements as $announcement) {	
 	

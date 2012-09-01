@@ -13,8 +13,13 @@
 $guid = get_input('guid');
 $title = get_input('title');
 $description = get_input('description');
+$expiry_date = strtotime(get_input('expiry_date'));
 $access_id = get_input('access_id');
 $container_guid = get_input('container_guid');
+
+if (empty($expiry_date)) {
+	$expiry_date = ANNOUNCEMENTS_NEVER_EXPIRE;
+}
 
 if ($guid) {
 	$announcement = get_entity($guid);
@@ -47,7 +52,7 @@ if ($container != elgg_get_logged_in_user_entity() && elgg_instanceof($container
 
 $announcement->title = $title;
 $announcement->description = $description;
-
+$announcement->expiry_date = $expiry_date;
 
 if ($announcement->save()) {
 	system_message(elgg_echo('announcements:success:save'));

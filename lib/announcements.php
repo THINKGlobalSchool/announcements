@@ -22,6 +22,7 @@ function announcements_prepare_form_vars($announcement = null) {
 	$values = array(
 		'title' => '',
 		'description' => '',
+		'expiry_date' => '',
 		'access_id' => ACCESS_DEFAULT,
 		'container_guid' => elgg_get_page_owner_guid(),
 		'guid' => null
