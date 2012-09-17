@@ -10,6 +10,7 @@
  * 
  */
 elgg_register_event_handler('init', 'system', 'announcements_init');
+elgg_register_event_handler('init', 'system', 'announcements_late_init', 999);
 
 function announcements_init() {
 	$plugin_root = dirname(__FILE__);
@@ -56,7 +57,10 @@ function announcements_init() {
 	
 	// add the group announcements option
     add_group_tool_option('announcements',elgg_echo('groups:enableannouncements'),true);
-	
+}
+
+// 
+function announcements_late_init() {
 	// Check if we're allowed to see announcements
 	if (can_user_manage_announcements()) {
 		// Add to main menu

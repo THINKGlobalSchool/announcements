@@ -75,25 +75,14 @@ function can_user_manage_announcements() {
 	if (elgg_is_admin_logged_in()) {
 		return true;
 	}
-	// Will be true for whitelist, false for blacklist
-	$access_toggle = elgg_get_plugin_setting('usertoggle', 'announcements');
+	
+	$admin_role = elgg_get_plugin_setting('admin_role', 'announcements');
+	
+	$role = get_entity($admin_role);
 
-	$user_list = elgg_get_plugin_setting('userlist','announcements');
-	$user_list = explode("\n", $user_list);
-
-	$user = elgg_get_logged_in_user_entity();
-
-	if (in_array($user->username, $user_list)) {
-		$user_in_list = true;
-	}
-
-	if ($access_toggle) {
-		// Whitelist
-		$allowed = $user_in_list ? true : false;
+	if (elgg_instanceof($role, 'object', 'role') && $role->isMember(elgg_get_logged_in_user_entity())) {
+		return TRUE;
 	} else {
-		// Blacklist
-		$allowed = $user_in_list ? false : true;
+		return FALSE;
 	}
-
-	return $allowed;
 }
