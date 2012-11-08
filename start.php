@@ -55,6 +55,9 @@ function announcements_init() {
 	// Add entity menu items
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'announcements_entity_menu');
 	
+	// Register announcements with ECML
+	elgg_register_plugin_hook_handler('get_views', 'ecml', 'announcements_ecml_views_hook');
+	
 	// add the group announcements option
     add_group_tool_option('announcements',elgg_echo('groups:enableannouncements'),true);
 }
@@ -186,4 +189,14 @@ function announcements_entity_menu($hook, $type, $return, $params) {
 	} 
 
 	return $return;
+}
+
+/**
+ * Parse announcements for ECML
+ */
+function announcements_ecml_views_hook($hook, $entity_type, $return_value, $params) {
+	$return_value['announcements/announcement'] = elgg_echo('announcement');
+	$return_value['object/announcement'] = elgg_echo('announcement_full');
+
+	return $return_value;
 }
