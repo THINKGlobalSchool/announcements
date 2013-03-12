@@ -25,7 +25,8 @@ function announcements_prepare_form_vars($announcement = null) {
 		'expiry_date' => '',
 		'access_id' => ACCESS_DEFAULT,
 		'container_guid' => elgg_get_page_owner_guid(),
-		'guid' => null
+		'guid' => null,
+		'tags' => '',
 	);
 
 	if (elgg_is_sticky_form('annoucement-post-form')) {

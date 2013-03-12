@@ -16,7 +16,7 @@ $expiry_date = elgg_extract('expiry_date', $vars);
 $container_guid = elgg_extract('container_guid', $vars);
 $access_id = elgg_extract('access_id', $vars, ACCESS_DEFAULT);
 $guid = elgg_extract('guid', $vars);
-
+$tags = elgg_extract('tags', $vars);
 
 // Labels/Input
 $title_label = elgg_echo('title');
@@ -49,6 +49,9 @@ $expiry_input = elgg_view('input/date', array(
 	'value' => $expiry_date,
 ));
 
+$tags_label = elgg_echo('tags');
+$tags_input = elgg_view('input/tags', array('name' => 'tags', 'value' => $tags));
+
 $submit_input = elgg_view('input/submit', array('name' => 'submit', 'value' => elgg_echo('save')));
 
 $container_hidden = elgg_view('input/hidden', array('name' => 'container_guid', 'value' => $container_guid));
@@ -59,19 +62,23 @@ $form_body = <<<HTML
 <div>
 	<div>
 		<label>$title_label</label><br />
-        $title_input
+		$title_input
 	</div><br />
 	<div>
 		<label>$description_label</label><br />
-        $description_input
+		$description_input
+	</div><br />
+	<div>
+		<label>$tags_label</label><br />
+		$tags_input
 	</div><br />
 	<div>
 		<label>$access_label</label><br />
-        $access_input
+		$access_input
 	</div><br />
 	<div>
 		<label>$expiry_label</label><br />
-        $expiry_input
+		$expiry_input
 	</div><br />
 	<div class="elgg-foot">
 		$submit_input
