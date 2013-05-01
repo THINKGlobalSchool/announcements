@@ -36,19 +36,23 @@ switch ($announcement->access_id) {
 		break;
 }
 
-$title = <<<___HTML
+$title = <<<HTML
 $announcement->title
 <a class="elgg-announcement-close" href="$close_url">Close&nbsp;<span class="elgg-icon elgg-icon-delete right"></span></a>
-___HTML;
+HTML;
 
-$body = <<<___HTML
-$announcement->description
+$description = elgg_view('output/longtext', array(
+	'value' => $announcement->description
+));
+
+$body = <<<HTML
+$description
 <span class="right clearfix elgg-announcement-access-display">$access_content</span>
-___HTML;
+HTML;
 
 $options = array(
 	'id' => 'announcement-' . $announcement->getGUID(),
-	'class' => 'elgg-announcement elgg-output'
+	'class' => 'elgg-announcement'
 );
 
 echo elgg_view_module('featured', $title, $body, $options);
