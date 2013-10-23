@@ -60,6 +60,8 @@ function announcements_init() {
 	
 	// add the group announcements option
     add_group_tool_option('announcements',elgg_echo('groups:enableannouncements'),true);
+
+    elgg_register_widget_type('announcements', elgg_echo('announcements:widget:title'), elgg_echo('announcements:widget:desc'), 'rolewidget');
 }
 
 // 

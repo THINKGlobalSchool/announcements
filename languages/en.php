@@ -53,6 +53,10 @@ $english = array(
 	// Other content
 	'announcements:author_by_line' => 'By %s',
 	'announcements:viewed_by' => "%s of %s %s users have viewed this announcement (%s)",
+
+	// Widgets
+	'announcements:widget:title' => 'Announcements',
+	'announcements:widget:desc' => 'Display Announcement List',
 );
 
 add_translation('en', $english);
