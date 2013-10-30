@@ -55,4 +55,4 @@ $options = array(
 	'class' => 'elgg-announcement'
 );
 
-echo elgg_view_module('featured', $title, $body, $options);
+echo elgg_view_module('popup', $title, $body, $options);

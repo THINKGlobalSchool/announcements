@@ -20,6 +20,10 @@ span.elgg-announcement-access-display {
 	margin-bottom: -5px;
 }
 
+.elgg-widget-instance-announcements span.elgg-announcement-access-display {
+	margin-bottom: 0px;
+}
+
 div.elgg-announcement-description {
 	border-top: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
