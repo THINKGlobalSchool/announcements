@@ -30,6 +30,7 @@ $english = array(
 	// Labels 
 	'announcements:label:usersviewed' => 'Viewed By:',
 	'announcements:label:adminrole' => 'Admin Role',
+	'announcements:label:close' => 'Close',
 
 	// Messages
 	'announcements:success:save' => 'Successfully saved the announcement',

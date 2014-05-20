@@ -5,7 +5,7 @@
  * @package Announcements
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010
+ * @copyright THINK Global School 2010 - 2014
  * @link http://www.thinkglobalschool.com/
  * 
  */
@@ -36,9 +36,11 @@ switch ($announcement->access_id) {
 		break;
 }
 
+$close_label = elgg_echo('announcements:label:close');
+
 $title = <<<HTML
 $announcement->title
-<a class="elgg-announcement-close" href="$close_url">Close&nbsp;<span class="elgg-icon elgg-icon-delete right"></span></a>
+	<a class="elgg-announcement-close small" href="$close_url">&nbsp;$close_label&nbsp;<span class="elgg-icon elgg-icon-delete right"></span></a>
 HTML;
 
 $description = elgg_view('output/longtext', array(
@@ -46,8 +48,8 @@ $description = elgg_view('output/longtext', array(
 ));
 
 $body = <<<HTML
-$description
-<span class="right clearfix elgg-announcement-access-display">$access_content</span>
+	$description
+	<span class="right clearfix elgg-announcement-access-display">$access_content</span>
 HTML;
 
 $options = array(
@@ -55,4 +57,4 @@ $options = array(
 	'class' => 'elgg-announcement'
 );
 
-echo elgg_view_module('popup', $title, $body, $options);
+echo elgg_view_module('aside', $title, $body, $options);
