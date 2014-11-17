@@ -22,7 +22,7 @@ switch ($announcement->access_id) {
 		$access_content = 'Private';
 		break;
 	case 1: 
-		$access_content = 'Logged In Users';
+		$access_content = 'Logged-in Users';
 		break;
 	case 2:
 		$access_content = 'Public';
