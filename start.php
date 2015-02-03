@@ -5,7 +5,7 @@
  * @package Announcements
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2014
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.com/
  * 
  */
@@ -47,8 +47,8 @@ function announcements_init() {
 	elgg_register_action('announcements/delete', "$action_base/delete.php");
 	
 	// Register URL handler
-	elgg_register_entity_url_handler('object', 'announcement', 'announcement_url');
-	
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'announcement_url');
+
 	// Group announcements owner block 
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'announcements_owner_block_menu');
 	
@@ -130,14 +130,25 @@ function announcements_page_handler($page) {
 }
 
 /**
- * Populates the ->getUrl() method for announcement entities
+ * Returns the URL from an announcement entity
  *
- * @param ElggEntity entity
- * @return string request url
+ * @param string $hook   'entity:url'
+ * @param string $type   'object'
+ * @param string $url    The current URL
+ * @param array  $params Hook parameters
+ * @return string
  */
-function announcement_url($entity) {
+function announcement_url($hook, $type, $url, $params) {
+	$entity = $params['entity'];
+
+	// Check that the entity is a photo object
+	if (!elgg_instanceof($entity, 'object', 'announcement')) {
+		return;
+	}
+
 	$title = elgg_get_friendly_title($entity->title);
-	return elgg_get_site_url() . "announcements/view/{$entity->guid}/$title";
+
+	return "announcements/view/{$entity->guid}/$title";
 }
 
 /**

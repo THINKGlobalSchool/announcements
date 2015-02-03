@@ -10,8 +10,7 @@
  * 
  */
 
-$english = array(
-	
+return array(
 	// Generic
 	'announcement' => 'Announcements',
 	'announcements' => 'Announcements',
@@ -59,5 +58,3 @@ $english = array(
 	'announcements:widget:title' => 'Announcements',
 	'announcements:widget:desc' => 'Display Announcement List',
 );
-
-add_translation('en', $english);
